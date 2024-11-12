@@ -1,0 +1,16 @@
+can delte col form table then migrate
+or 
+add new columns then write in terminal :
+1:
+php artisan make:migration modify_books_table --table=books
+php artisan make:migration add_image_to_products_table --table=products
+
+2:
+php artisan migrate
+
+To remove
+1:
+php artisan make:migration remove_image_from_products_table --table=products
+
+2:
+php artisan migrate

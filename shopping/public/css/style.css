@@ -1,0 +1,72 @@
+* {
+    text-decoration: none;
+    list-style: none;
+
+}
+
+.table {
+    background-color: #ffffff; /* Light grey background */
+}
+
+
+.paragraph{
+    text-align: justify;
+    text-justify: inter-word;
+    
+}
+
+.dropdown-menu .dropdown-toggle:after {
+    transform: rotate(-90deg);
+}
+
+.dropdown-menu .dropdown-menu {
+    margin-right: 0;
+    margin-left: 100%;
+    top: 0;
+}
+
+.dropdown-menu li:hover > .dropdown-menu {
+    display: block;
+}
+
+.ccolor{
+    background-color: #385A64;
+}
+
+.nav-link{
+    color: white;
+
+}
+
+.info:hover{
+    color: #FFC801;
+}
+.nav-link{
+    color: white;
+}
+.nav-link:hover{
+    color: #FFC801;
+
+}
+.btn:hover{
+    background-color: #FFC801;
+
+}
+
+input:focus {
+    outline: none;
+}
+    
+
+/* Custom CSS to change the background color of dropdown items on hover */
+.dropdown-item:hover, .dropdown-item:focus {
+    background-color: #f8f9fa; /* Light gray background */
+    color: #000; /* Optional: Change text color if needed */
+}
+
+/* Custom CSS to change the background color of the active dropdown item */
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #6c757d; /* Dark gray background */
+    color: #fff; /* Optional: Change text color if needed */
+}
+

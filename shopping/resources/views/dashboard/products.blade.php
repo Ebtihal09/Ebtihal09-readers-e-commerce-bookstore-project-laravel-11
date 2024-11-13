@@ -21,17 +21,23 @@
                             <div class="col">
                                 <label for="productname">اسم الكتاب:</label>
                                 <input type="text" name="productname" id="productname" class="form-control">
+                                @error('productname')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
 
                             <div class="col">
                                 <label for="productdesc">تصنيف الكتاب:</label>
                                 <input type="text" name="productdesc" id="productdesc" class="form-control">
+                                @error('productdesc')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col">
-                                <button type="submit" class="btn btn-success mt-2">حفظ</button>
+                                <button type="submit" class="btn text-white mt-2">حفظ</button>
                             </div>
                         </div>
                     </form>

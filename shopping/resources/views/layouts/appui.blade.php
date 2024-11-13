@@ -56,7 +56,6 @@
         .btn:active{
             background-color: #2C444E;
             border-color: #2C444E;
-
         }
     </style>
 
@@ -74,8 +73,11 @@
                     </a>
                 </div>
             
-                <form class="form-control d-flex justify-content-between bg-white" style="width: 30em;">
-                    <input type="text" name="search" id="search" placeholder="أدخل كلمة البحث" style="border: none;">
+                <form class="form-control d-flex justify-content-between bg-white" style="width: 30em;" action="{{route('search')}}" method="get">
+                    <input type="text" name="search" id="search" placeholder="أدخل اسم الكتاب .." style="border: none;">
+                    @error('search')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
                     <button type="submit" class="btn btn-sm text-white"><i class="bi bi-search"></i></button>
                 </form>
             
@@ -156,9 +158,9 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">تصنيفات الكتب</a>
                             <ul class="dropdown-menu text-end">
-                                <li><a class="dropdown-item" href="#"> تطوير الذات</a></li>
-                                <li><a class="dropdown-item" href="#"> روائية</a></li>
+                                <li><a class="dropdown-item" href="{{route('novels')}}"> روايات</a></li>
                                 <li><a class="dropdown-item" href="#"> دينية</a></li>
+                                <li><a class="dropdown-item" href="#"> تطوير الذات</a></li>
                                 <li><a class="dropdown-item" href="#"> أطفال</a></li>
                             </ul>
                         </li>
@@ -168,8 +170,6 @@
                             <ul class="dropdown-menu text-end">
                                 <li><a class="dropdown-item" href="#">دار تشكيل</a></li>
                                 <li><a class="dropdown-item" href="#">دار عصير الكتب</a></li>
-                                <li><a class="dropdown-item" href="#">دار الحوار</a></li>
-                                <li><a class="dropdown-item" href="#">دار المجرة</a></li>
                                 <li><a class="dropdown-item" href="#">دار سما</a></li>
                                 <li><a class="dropdown-item" href="#">دار المنى</a></li>
                                 <li><a class="dropdown-item" href="#">دار الساقي</a></li>

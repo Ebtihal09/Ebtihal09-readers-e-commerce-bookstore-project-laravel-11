@@ -21,7 +21,7 @@
                         </div>
                         <div class="row mt-2">
                             <div class="col">
-                                <button type="submit" class="btn btn-info">حفظ</button>
+                                <button type="submit" class="btn text-white">حفظ</button>
                             </div>
                             
                         </div>

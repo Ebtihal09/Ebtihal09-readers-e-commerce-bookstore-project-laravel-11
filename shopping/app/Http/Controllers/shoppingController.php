@@ -19,6 +19,32 @@ use Illuminate\Http\Request;
 
 class shoppingController extends Controller
 {
+    public function search(Request $request){
+        //Validation 
+        $request->validate([
+            'search'=>['required'],
+
+        ]);
+        $search = products::where('name', '=', $request->search)->get();
+    
+
+        if ($search->isNotEmpty()) {
+          
+            $product_id = $search->first()->id;
+           
+            $book = DB::table('products')
+                ->join('products_details', 'products.id', '=', 'products_details.id_product')
+                ->where('products_details.id_product', '=', $product_id)
+                ->first();
+            // dd($book);  
+        } else {
+            
+            $book = null;
+        }
+    
+        return view('shopping.searche', ['book' => $book]);
+    }
+    
 
     
     public function add_to_cart($id){
@@ -134,13 +160,43 @@ class shoppingController extends Controller
     }
 
     public function all_books(){
+
+        $cateo=[];
+        $categories=DB::table('products')->get();
+        foreach ($categories as $counter=>$cate){
+            if(!in_array($cate->description,$cateo)){
+            $cateo[$counter]=$cate->description;
+        }}
+     
+
         $book=DB::table('products')
         ->join('products_details','products.id','=','products_details.id_product')
         ->get();
         // dd($book);
-        return view("shopping.all_books",["books"=>$book]);
+        return view("shopping.all_books",["books"=>$book,"categories"=>$cateo]);
 
+    }
 
+    public function all_books_search(Request $request){
+        $cateo=[];
+        $categories=DB::table('products')->get();
+        foreach ($categories as $counter=>$cate){
+            if(!in_array($cate->description,$cateo)){
+            $cateo[$counter]=$cate->description;
+        }}
+
+        $search = products::where('description', '=', $request->books)->get();
+        $type = $search->first()->description; //يحتوي اسم نوع الكتب
+     
+           
+        $book = DB::table('products')
+            ->join('products_details', 'products.id', '=', 'products_details.id_product')
+            ->where('products_details.description', '=', $type)
+            ->get();
+        // dd($book);
+
+        return view("shopping.all_books",["books"=>$book,"categories"=>$cateo]);
+     
 
     }
     public function cart_details(){
@@ -149,14 +205,17 @@ class shoppingController extends Controller
         // ->where('products_details.id','=',$id)
         // ->first();
         // // dd($book);
+
+        $user = Auth::user();
+        $user_id = $user->id;
+
        $product = DB::table("carts")
             ->join('products_details', 'carts.product_id', '=', 'products_details.id')
             ->join('products', 'products_details.id_product', '=', 'products.id')
-            ->select('carts.*', 'products_details.price','products_details.image', 'products.name') // Select the columns you need
+            ->where('carts.customer_id', '=', $user_id) 
+            ->select('carts.*', 'products_details.price','products_details.image', 'products.name') 
             ->get();
-        
-            $user = Auth::user();
-            $user_id = $user->id;
+   
             $price = DB::table('carts')
             ->where('customer_id', '=',$user_id)
             ->get();
@@ -195,11 +254,6 @@ class shoppingController extends Controller
             // $product->save();
             // dd($product);
 
-            $product = DB::table("carts")
-            ->join('products_details', 'carts.product_id', '=', 'products_details.id')
-            ->join('products', 'products_details.id_product', '=', 'products.id')
-            ->select('carts.*', 'products_details.price','products_details.image', 'products.name') // Select the columns you need
-            ->get();
         
             $user = Auth::user();
             $user_id = $user->id;
@@ -229,15 +283,22 @@ class shoppingController extends Controller
             ]);
             $order->save();
             }
-
+            
             foreach($price as $pr){
                 $order2=orders::create([
                     'customer_id'=>$pr->customer_id,
                     'product_id'=>$pr->product_id,
-                    'status'=>1,   
+                    'status'=>true,   
                 ]);
                 $order2->save();
                 }
+
+                $user = Auth::user();
+                $user_id = $user->id;
+            
+                DB::table('carts')
+                    ->where('customer_id', '=', $user_id)
+                    ->delete();
              
             return view('shopping.landing');
 

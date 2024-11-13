@@ -27,14 +27,14 @@
 
                             <div class="col">
                                 <label for="d" class="form-label">وصف الكتاب </label>
-                                <textarea type="text" placeholder="وصف الكتاب ..." class="form-control" id="d" name="desctwo"></textarea>
+                                <textarea type="text" placeholder="وصف الكتاب ..." class="form-control" id="d" name="desctwo">{{$productx->desc}}</textarea>
                             </div>
                             
                         </div>
 
                         <div class="row mt-2">
                             <div class="col text-center">
-                                <button type="submit" class="btn btn-primary">حفظ</button>
+                                <button type="submit" class="btn text-white">حفظ</button>
                             </div>
                         </div>
                     </div> 

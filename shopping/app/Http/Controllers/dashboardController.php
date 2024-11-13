@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\products;
+use App\Models\orders;
 use App\Models\products_details;
 
 class dashboardController extends Controller
@@ -19,6 +20,13 @@ class dashboardController extends Controller
     }
 
     public function create_products(Request $request){
+         //Validation 
+         $request->validate([
+            'productname'=>['required'],
+            'productdesc'=>['required'],
+
+        ]);
+
         $product=products::create([
             'name'=> $request->productname,
             'description'=> $request->productdesc,
@@ -58,6 +66,18 @@ class dashboardController extends Controller
         public function add_product_details(Request $request){
             $image_name = $request->file('img')->getClientOriginalName();
             $request->file('img')->storeAs('books_images/', $image_name);
+
+            //Validation 
+            $request->validate([
+                'id'=>['required'],
+                'productID'=>['required'],
+                'price'=>['required'],
+                'gty'=>['required'],
+                'img'=>['required'],
+                'desc'=>['required'],
+                'desctwo'=>['required'],
+
+            ]);
             
             $product=products_details::create([
                 'id'=>$request->id,
@@ -94,7 +114,7 @@ class dashboardController extends Controller
         //Update, First step, show selected record 
         public function edit_details($id){
             $productx=products_details::find($id);
-            // dd($product);
+            // dd($productx);
             return view('dashboard.edit_details',['productx'=>$productx]);
         }
     
@@ -103,6 +123,45 @@ class dashboardController extends Controller
             products_details::where('id','=',$request->id)
             ->update(['price'=> $request->price, 'gty'=> $request->gty, 'description'=> $request->desc,'desc'=>$request->desctwo]);
             return redirect()->route('details');
+        }
+
+        public function orders(){
+
+            // $orders = orders::with('customer_id') 
+            // ->get()
+            // ->groupBy('customer_id');
+
+
+            $orders = DB::table("orders")
+            ->join('products_details', 'orders.product_id', '=', 'products_details.id')
+            ->join('products', 'products_details.id_product', '=', 'products.id')
+            ->join('Users', 'orders.customer_id', '=', 'Users.id')
+            ->select('orders.*','Users.email', 'products_details.price', 'products.name') 
+            ->get();
+            // dd($orders);    
+
+            return view('dashboard.order', ['orders'=>$orders]);
+            
+
+        }
+
+        public function bills(){
+            $bills = DB::table('invoices')->get();
+            
+        //     $invoices=[];
+
+        //     foreach($bills as $counter=>$bill){
+        //         if(!in_array($bill->customer_id, $invoices)) { 
+        //             $invoices[$counter] = $bill->customer_id;
+            
+        // }}
+
+        // $bi = DB::table('invoices')->
+        // where('customer_id','=','')->get();
+        //     dd($bi);  
+
+             return view('dashboard.bills',['invoice'=>$bills]);
+
         }
 
 

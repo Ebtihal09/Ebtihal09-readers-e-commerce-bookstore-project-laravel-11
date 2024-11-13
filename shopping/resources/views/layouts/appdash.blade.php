@@ -13,6 +13,9 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <!-- CSS  -->
+    <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
@@ -26,6 +29,20 @@
         *{
             font-family:Almarai
         }
+
+        .btn{
+            background-color: #2C444E;
+            border-color: #2C444E;
+        }
+        .btn:hover{
+            background-color: #FFC801; /* Dark gray background */
+        }
+        .btn:active{
+            background-color: #2C444E;
+            border-color: #2C444E;
+        }
+
+        
     </style>
 </head>
 
@@ -33,52 +50,63 @@
     <div id="app">
        
     <header>
-        <nav class="navbar navbar-expand navbar-dark bg-dark text-white">
+        <nav class="navbar navbar-expand text-white" style="background-color: #385A64">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                        </li>
+                <a class="navbar-brand" href="{{route('dashboard')}}">
+                    <img src="{{asset('images/lg.svg')}}" alt="Logo" width="146" height="43">
+                </a>
+                <div class="">
+                    <ul class="navbar-nav ms-auto d-flex justify-content-start">
+                        <!-- Authentication Links -->
+                        @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown ms-5" style="color: white">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle ms-5 text-white" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }}
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item text-end" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                        {{ __('تسجيل خروج') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                        <!-- Authentication Links End -->
                 </div>
             </div>
+
+
+          
         </nav>
     </header>   
        
         <main>
             <!-- Sidebar --> 
             <div class="row">
-                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark text-white">
+                <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 text-white" style="background-color: #385A64">
                     <div class="d-flex flex-column align-items-start align-items-sm-start px-3 pt-2 text-white min-vh-100">
                         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start align-items-sm-start pe-0 me-1" id="menu">
                             <li class="nav-item">
-                                <a href="/" class="nav-link align-start text-white px-0">
+                                <a href="#" class="nav-link align-start text-white px-0">
                                     <i class="fs-4 bi-house text-white"></i> <span class="ms-1 d-none d-sm-inline me-2">الرئيسية</span>
                                 </a>
                             </li>
@@ -95,36 +123,17 @@
                             </li>
 
                             <li>
-                                <a href="#" class="nav-link px-0 align-middle text-white">
-                                    <i class="fs-4 bi-people text-white"></i> <span class="ms-1 d-none d-sm-inline me-2">العملاء</span> </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="nav-link px-0 align-middle text-white">
+                                <a href="{{route('orders')}}" class="nav-link px-0 align-middle text-white">
                                     <i class="fs-4 bi-border-width text-white"></i> <span class="ms-1 d-none d-sm-inline me-2">الطلبات</span> </a>
                             </li>
 
                             <li>
-                                <a href="#" class="nav-link px-0 align-middle text-white">
+                                <a href="{{route('bills')}}" class="nav-link px-0 align-middle text-white">
                                     <i class="fs-4 bi-receipt-cutoff text-white"></i> <span class="ms-1 d-none d-sm-inline me-2">الفواتير</span> </a>
                             </li>
                         </ul>
                         <hr>
-                        <div class="dropdown pb-4">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
-                                <span class="d-none d-sm-inline mx-1">loser</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                                <li><a class="dropdown-item" href="#">New project...</a></li>
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Sign out</a></li>
-                            </ul>
-                        </div>
+                       
                     </div>
                 </div>
 

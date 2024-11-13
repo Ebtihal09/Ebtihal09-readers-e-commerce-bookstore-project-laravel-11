@@ -11,9 +11,7 @@
             <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title">{{$book->name}}</h5>
-                <strong class="text-body-secondary">وصف الكتاب:</strong>
                 <p class="card-text">{{$book->desc}}</p>
-                <strong class="text-body-secondary">السعر:</strong>
                 <p class="card-text"><strong>{{$book->price}} SAR</strong></p>
                 <div class="text-start">
                 <a href="{{route('add_to_cart',['id'=>$book->id])}}" class="btn btn-primary rounded"><i class="bi bi-cart3 ms-2"></i>أضف إلى السلة</a>

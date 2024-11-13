@@ -16,6 +16,9 @@
                                     <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
                                 </select>
+                                @error('productID')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -23,10 +26,16 @@
                             <div class="col">
                                 <label for="price" class="form-label">سعر الكتاب</label>
                                 <input type="text" class="form-control" id="price" name="price">
+                                @error('price')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                             <div class="col">
                                 <label for="price" class="form-label">الكمية </label>
                                 <input type="text" class="form-control" id="price" name="gty">
+                                @error('gty')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -34,10 +43,16 @@
                             <div class="col">
                                 <label for="desc" class="form-label">تصنيف الكتاب</label>
                                 <input type="text" class="form-control" id="desc" name="desc">
+                                @error('desc')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                             <div class="col">
                                 <label for="img" class="form-label">صورة الكتاب </label>
                                 <input type="file" class="form-control" id="img" name="img">
+                                @error('img')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -45,12 +60,15 @@
                             <div class="col">
                                 <label for="d" class="form-label">وصف الكتاب </label>
                                 <textarea type="text" placeholder="وصف الكتاب ..." class="form-control" id="d" name="desctwo"></textarea>
+                                @error('desctwo')
+                                <span class="text-danger">{{$message}}</span>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <div class="col text-center">
-                                <button type="submit" class="btn btn-primary">حفظ</button>
+                                <button type="submit" class="btn text-white">حفظ</button>
                             </div>
                         </div>
                     </div> 

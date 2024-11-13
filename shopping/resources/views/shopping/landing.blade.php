@@ -6,7 +6,7 @@
         <div class="col-6 align-self-center">
             <h1>قصص تُـــلهم، معارف تُبنـــى</h1>
             <p class="mt-1 fs-5">نؤمن بقوة الكتب في تغيير الحيوات وتوسيع الآفاق. لذا، نحرص على اختيار أفضل الإصدارات التي تثري تجربتك القرائية.</p>
-            <a href="{{route('all_books')}}" class="btn text-white mt-3">تسوق الآن<i class="bi bi-arrow-left me-2"></i></a>
+            <a href="{{route('all_books')}}" class="btn text-white mt-3">تصفح الكتب<i class="bi bi-arrow-left me-2"></i></a>
 
         </div>
         <div class="col-6 mt-0 pt-0 d-flex justify-content-center">

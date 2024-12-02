@@ -1,17 +1,16 @@
 # قٌــــراء
+**Note** 🛠️ This project is still under development. Some features may not be available yet, and you may encounter some bugs.
 
-**ملاحظة** 🛠️ لا يزال هذا المشروع قيد التطوير. قد لا تكون بعض الميزات متاحة بعد، وقد تواجه بعض الأخطاء.
+## Description
+The project includes a dedicated online store for selling books, with designed and developed pages for both end users and an administrative control panel.
 
-## الوصف
-يتضمن المشروع متجرًا إلكترونيًا مخصصًا لبيع الكتب، مع صفحات مصممة ومطورة لكل من المستخدمين النهائيين ولوحة تحكم إدارية.
+## Features
 
-## المميزات
+- Simple and easy to use user interface
+- A special section for users to log in and interact with content
+- A special section for administrators to manage content and users
 
-- واجهة مستخدم بسيطة وسهلة الاستخدام
-- قسم خاص للمستخدمين لتسجيل الدخول والتفاعل مع المحتوى
-- قسم خاص للإداريين لإدارة المحتوى والمستخدمين
-
-## االمتطلبات
+## Requirements
 - Composer
 - Node.js
 - jQuery
